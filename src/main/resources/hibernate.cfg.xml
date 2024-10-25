@@ -1,0 +1,25 @@
+<hibernate-configuration>
+    <session-factory>
+        <!-- Database connection settings -->
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/my_webapptwo_rework_db</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">Nikitka290620041!</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!-- JDBC connection pool settings -->
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+
+        <!-- Enable Hibernate's automatic schema generation -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- Show SQL statements in console -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+
+        <!-- Mapping classes -->
+        <mapping class="csit.semit.nyr.webappsnyrlab21.entity.Client"/>
+        <mapping class="csit.semit.nyr.webappsnyrlab21.entity.NewPostTTN"/>
+    </session-factory>
+</hibernate-configuration>
