@@ -19,7 +19,7 @@ public class ShowNewPostTTNsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<NewPostTTN> ttns = DAONewPostTTN.getAllTTNs();
         request.setAttribute("ttns", ttns);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/newpost/ttns.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/newpost/list_ttns.jsp");
         dispatcher.forward(request, response);
     }
 }
