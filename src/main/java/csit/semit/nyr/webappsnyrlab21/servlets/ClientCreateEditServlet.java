@@ -28,7 +28,13 @@ public class ClientCreateEditServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Long clientId = request.getParameter("id_client") != null ? Long.parseLong(request.getParameter("id_client")) : null;
+        // Remove the parsing of client ID entirely, as it’s auto-incremented for new entries.
+        String clientIdStr = request.getParameter("id_client");
+        Long clientId = null;
+        if (clientIdStr != null && !clientIdStr.isEmpty()) {
+            clientId = Long.parseLong(clientIdStr);
+        }
+
         String firstName = request.getParameter("firstName");
         String secondName = request.getParameter("secondName");
         String region = request.getParameter("region");
@@ -36,12 +42,16 @@ public class ClientCreateEditServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");
 
-        Client client = new Client(clientId, firstName, secondName, region, city, phone, email);
-
+        Client client;
         String result;
+
         if (clientId == null) {
+            // New client, create a new instance without setting the ID
+            client = new Client(null, firstName, secondName, region, city, phone, email);
             result = DAOClients.insertClient(client);
         } else {
+            // Existing client, perform update
+            client = new Client(clientId, firstName, secondName, region, city, phone, email);
             result = DAOClients.updateClient(client, clientId);
         }
 
