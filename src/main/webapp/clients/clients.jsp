@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>Clients List</h1>
-<a href="manage">Add New Client</a>
+<a href="create">Add New Client</a> <!-- Updated link for adding a new client -->
 <br><br>
 <table border="1">
     <tr>
@@ -28,10 +28,11 @@
             <td><c:out value="${client.city}"/></td>
             <td><c:out value="${client.phone}"/></td>
             <td><c:out value="${client.email}"/></td>
+            <!-- Updated Edit action -->
             <td>
-                <form action="manage" method="get">
-                    <input type="hidden" name="id_client" value="${client.id}"/>
-                    <input type="submit" value="Edit"/>
+                <form action="${pageContext.request.contextPath}/clients/update" method="get">
+                    <input type="hidden" name="id_client" value="${client.id}" />
+                    <button type="submit">Edit</button>
                 </form>
             </td>
             <td>
