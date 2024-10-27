@@ -1,12 +1,18 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>JSP - Hello World</title>
+  <title>Orders Processing - Home</title>
 </head>
 <body>
-<h1><%= "Hello World!" %></h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
+<div style="text-align: center;">
+  <h1>Welcome to Orders Processing System</h1>
+  <br/>
+  <h3><a href="clients">Show All Clients</a></h3>
+  <br/>
+  <jsp:useBean id="now" class="java.util.Date" />
+  <h3><fmt:formatDate value="${now}" type="both" dateStyle="long" timeStyle="long" /></h3>
+</div>
 </body>
 </html>

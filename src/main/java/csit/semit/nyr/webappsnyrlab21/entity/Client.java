@@ -1,115 +1,43 @@
 package csit.semit.nyr.webappsnyrlab21.entity;
 
 import jakarta.persistence.*;
-
-import java.io.Serializable;
+import jakarta.validation.constraints.*;
+import lombok.*;
 
 @Entity
 @Table(name = "client")
-public class Client implements Serializable {
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(nullable = false)
+    @NotNull(message = "First name must be provided.")
     private String firstName;
 
-    @Column(name = "second_name", nullable = false)
+    @Column(nullable = false)
+    @NotNull(message = "Last name must be provided.")
     private String secondName;
 
-    @Column(name = "region", nullable = false)
+    @Column(nullable = false)
+    @NotNull(message = "Region must be specified.")
     private String region;
 
-    @Column(name = "city", nullable = false)
+    @Column(nullable = false)
+    @NotNull(message = "City must be specified.")
     private String city;
 
-    @Column(name = "phone", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
+    @NotNull(message = "Phone must be provided.")
+    @Pattern(regexp = "\\+\\d{12}", message = "Phone must follow the pattern +NNNNNNNNNNNN.")
     private String phone;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
+    @NotNull(message = "Email must be provided.")
+    @Email(message = "Email should be valid.")
     private String email;
-
-    // Constructors
-    public Client() {}
-
-    public Client(String firstName, String secondName, String region, String city, String phone, String email) {
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.region = region;
-        this.city = city;
-        this.phone = phone;
-        this.email = email;
-    }
-
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getSecondName() {
-        return secondName;
-    }
-
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    // toString method
-    @Override
-    public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", secondName='" + secondName + '\'' +
-                ", region='" + region + '\'' +
-                ", city='" + city + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
 }
+
