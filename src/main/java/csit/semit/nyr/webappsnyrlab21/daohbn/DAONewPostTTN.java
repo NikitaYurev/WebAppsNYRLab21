@@ -4,7 +4,9 @@ import csit.semit.nyr.webappsnyrlab21.entity.NewPostTTN;
 import csit.semit.nyr.webappsnyrlab21.hbnutils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DAONewPostTTN {
@@ -65,5 +67,55 @@ public class DAONewPostTTN {
             e.printStackTrace();
             return "Error deleting TTN.";
         }
+    }
+
+    public List<NewPostTTN> getFilteredTTNs(String receiver, String manager, String numPoint, String kodTTN, String status) {
+        List<NewPostTTN> ttns = new ArrayList<>();
+        StringBuilder queryBuilder = new StringBuilder("FROM NewPostTTN t WHERE 1=1");
+
+        if (receiver != null && !receiver.isEmpty()) {
+            queryBuilder.append(" AND (concat(t.receiver.firstName, ' ', t.receiver.secondName) LIKE :receiver " +
+                    "OR t.receiver.firstName LIKE :receiver " +
+                    "OR t.receiver.secondName LIKE :receiver)");
+        }
+        if (manager != null && !manager.isEmpty()) {
+            queryBuilder.append(" AND t.manager LIKE :manager");
+        }
+        if (numPoint != null && !numPoint.isEmpty()) {
+            queryBuilder.append(" AND t.numPoint = :numPoint");
+        }
+        if (kodTTN != null && !kodTTN.isEmpty()) {
+            queryBuilder.append(" AND t.kodTTN LIKE :kodTTN");
+        }
+        if (status != null && !status.isEmpty()) {
+            queryBuilder.append(" AND t.status = :status");
+        }
+
+        // Execute query with set parameters
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<NewPostTTN> query = session.createQuery(queryBuilder.toString(), NewPostTTN.class);
+
+            if (receiver != null && !receiver.isEmpty()) {
+                query.setParameter("receiver", "%" + receiver + "%");
+            }
+            if (manager != null && !manager.isEmpty()) {
+                query.setParameter("manager", "%" + manager + "%");
+            }
+            if (numPoint != null && !numPoint.isEmpty()) {
+                query.setParameter("numPoint", Integer.parseInt(numPoint));
+            }
+            if (kodTTN != null && !kodTTN.isEmpty()) {
+                query.setParameter("kodTTN", "%" + kodTTN + "%");
+            }
+            if (status != null && !status.isEmpty()) {
+                query.setParameter("status", status);
+            }
+
+            ttns = query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ttns;
     }
 }
