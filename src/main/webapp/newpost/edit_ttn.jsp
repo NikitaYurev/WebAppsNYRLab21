@@ -27,7 +27,7 @@
   </c:if>
 
   <c:if test="${ttn != null && clients != null && !clients.isEmpty()}">
-    <form action="../newpost/update" method="post" onsubmit="return validateForm()">
+    <form action="${pageContext.request.contextPath}/newpost/update" method="post" onsubmit="return validateForm()">
       <!-- Hidden field for TTN ID -->
       <input type="hidden" name="id_ttn" value="${ttn.id}"/>
 

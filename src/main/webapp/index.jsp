@@ -10,6 +10,7 @@
   <h1>Welcome to Orders Processing System</h1>
   <br/>
   <h3><a href="clients/list">Show All Clients</a></h3>
+  <h3><a href="newpost/list">Show All TTNs</a></h3>
   <br/>
   <jsp:useBean id="now" class="java.util.Date" />
   <h3><fmt:formatDate value="${now}" type="both" dateStyle="long" timeStyle="long" /></h3>

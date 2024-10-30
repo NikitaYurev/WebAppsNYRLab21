@@ -22,18 +22,26 @@ public class NewPostTTNUpdateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("Accessed NewPostTTNUpdateServlet - doGet");
+
         Long ttnId = Long.parseLong(request.getParameter("id_ttn"));
+        System.out.println("TTN ID Received: " + ttnId);
+
         NewPostTTN ttn = DAONewPostTTN.getTTNById(ttnId);
+        if (ttn == null) {
+            System.out.println("TTN not found for ID: " + ttnId);
+        } else {
+            System.out.println("TTN found: " + ttn.getKodTTN());
+        }
+
         List<Client> clients = DAOClients.getAllClients();
         request.setAttribute("ttn", ttn);
         request.setAttribute("clients", clients);
         request.setAttribute("statuses", DeliveryStatus.values());
 
-        // Format sendTime for the input field, handling null case
         if (ttn != null && ttn.getSendTime() != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-            String formattedSendTime = ttn.getSendTime().format(formatter);
-            request.setAttribute("formattedSendTime", formattedSendTime);
+            request.setAttribute("formattedSendTime", ttn.getSendTime().format(formatter));
         } else {
             request.setAttribute("formattedSendTime", "");
         }

@@ -33,7 +33,7 @@
   </p>
 
   <!-- Filter form -->
-  <form action="${pageContext.request.contextPath}/newpost" method="get" class="filter-form">
+  <form action="${pageContext.request.contextPath}/newpost/list" method="get" class="filter-form">
     <table>
       <tr>
         <td><label for="receiverFilter">Receiver Name:</label></td>
@@ -62,7 +62,6 @@
         <td colspan="4" style="text-align: right;"><button type="submit">Filter</button></td>
       </tr>
     </table>
-    <button type="submit">Filter</button>
   </form>
   <br>
 
@@ -81,7 +80,7 @@
         <th>Code TTN</th>
         <th>Send Time</th>
         <th>Status</th>
-        <th>Actions</th>
+        <th colspan="2">Actions</th>
       </tr>
       <c:forEach var="ttn" items="${ttns}">
         <tr>
@@ -93,24 +92,23 @@
           <td><c:out value="${ttn.sendTime}"/></td>
           <td><c:out value="${ttn.status}"/></td>
           <td>
-            <!-- Edit Link -->
-            <form action="<c:url value='/newpost/update' />" method="get" style="display:inline;">
+            <!-- Edit action -->
+            <form action="${pageContext.request.contextPath}/newpost/update" method="get">
               <input type="hidden" name="id_ttn" value="${ttn.id}" />
-              <input type="submit" value="Edit" />
+              <button type="submit">Edit</button>
             </form>
-
-            <!-- Delete Link -->
-            <form action="<c:url value='/newpost/delete' />" method="post" style="display:inline;">
-              <input type="hidden" name="id_ttn" value="${ttn.id}" />
-              <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this TTN?')" />
+          </td>
+          <td>
+            <!-- Delete action -->
+            <form action="${pageContext.request.contextPath}/newpost/delete" method="get">
+              <input type="hidden" name="id_ttn" value="${ttn.id}"/>
+              <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this TTN?')"/>
             </form>
           </td>
         </tr>
       </c:forEach>
     </table>
   </c:if>
-
-
 </div>
 </body>
 </html>
