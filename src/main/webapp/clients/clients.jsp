@@ -10,6 +10,35 @@
 <h1>Clients List</h1>
 <a href="create">Add New Client</a> <!-- Updated link for adding a new client -->
 <br><br>
+
+<!-- Filter form -->
+<form action="${pageContext.request.contextPath}/clients/list" method="get">
+    <table>
+        <tr>
+            <td><label for="firstNameFilter">First Name:</label></td>
+            <td><input type="text" id="firstNameFilter" name="firstNameFilter" value="${param.firstNameFilter}"/></td>
+            <td><label for="lastNameFilter">Last Name:</label></td>
+            <td><input type="text" id="lastNameFilter" name="secondNameFilter" value="${param.secondNameFilter}"/></td>
+        </tr>
+        <tr>
+            <td><label for="regionFilter">Region:</label></td>
+            <td><input type="text" id="regionFilter" name="regionFilter" value="${param.regionFilter}"/></td>
+            <td><label for="cityFilter">City:</label></td>
+            <td><input type="text" id="cityFilter" name="cityFilter" value="${param.cityFilter}"/></td>
+        </tr>
+        <tr>
+            <td><label for="phoneFilter">Phone:</label></td>
+            <td><input type="text" id="phoneFilter" name="phoneFilter" value="${param.phoneFilter}"/></td>
+            <td><label for="emailFilter">Email:</label></td>
+            <td><input type="text" id="emailFilter" name="emailFilter" value="${param.emailFilter}"/></td>
+        </tr>
+        <tr>
+            <td colspan="4" style="text-align: right;"><button type="submit">Filter</button></td>
+        </tr>
+    </table>
+</form>
+<br>
+
 <table border="1">
     <tr>
         <th>First Name</th>

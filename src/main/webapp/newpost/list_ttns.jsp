@@ -10,6 +10,44 @@
 <div class="content">
   <h1>TTNs List - Orders Processing</h1>
 
+  <!-- Link to create a new TTN -->
+  <p>
+    <a href="<c:url value='/newpost/create' />">Create New TTN</a>
+  </p>
+
+  <!-- Filter form -->
+  <form action="${pageContext.request.contextPath}/newpost" method="get">
+    <table>
+      <tr>
+        <td><label for="receiverFilter">Receiver Name:</label></td>
+        <td><input type="text" id="receiverFilter" name="receiverFilter" value="${param.receiverFilter}"/></td>
+        <td><label for="managerFilter">Manager:</label></td>
+        <td><input type="text" id="managerFilter" name="managerFilter" value="${param.managerFilter}"/></td>
+      </tr>
+      <tr>
+        <td><label for="numPointFilter">Number of Point:</label></td>
+        <td><input type="text" id="numPointFilter" name="numPointFilter" value="${param.numPointFilter}"/></td>
+        <td><label for="kodTTNFilter">Code TTN:</label></td>
+        <td><input type="text" id="kodTTNFilter" name="kodTTNFilter" value="${param.kodTTNFilter}"/></td>
+      </tr>
+      <tr>
+        <td><label for="statusFilter">Status:</label></td>
+        <td colspan="3">
+          <select id="statusFilter" name="statusFilter">
+            <option value="">All</option>
+            <option value="SENT" <c:if test="${param.statusFilter == 'SENT'}">selected</c:if>>Sent</option>
+            <option value="RECEIVED" <c:if test="${param.statusFilter == 'RECEIVED'}">selected</c:if>>Received</option>
+            <option value="RETURNED" <c:if test="${param.statusFilter == 'RETURNED'}">selected</c:if>>Returned</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4" style="text-align: right;"><button type="submit">Filter</button></td>
+      </tr>
+    </table>
+  </form>
+  <br>
+
   <!-- Check if there are any TTNs to display -->
   <c:if test="${ttns == null || ttns.isEmpty()}">
     <p>No TTNs available.</p>
@@ -53,11 +91,6 @@
       </c:forEach>
     </table>
   </c:if>
-
-  <!-- Link to create a new TTN -->
-  <p>
-    <a href="<c:url value='/newpost/create' />">Create New TTN</a>
-  </p>
 </div>
 </body>
 </html>
